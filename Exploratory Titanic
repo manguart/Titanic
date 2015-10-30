@@ -1,0 +1,228 @@
+
+#Exploración de datos
+library(ggplot2)
+
+datos$Survived <- as.factor(datos$Survived)
+#Survived
+table(datos$Survived)
+survived <- split(datos$Survived,datos$Survived)
+names(survived) <- c("No survived","Survived")
+sapply(survived,summary)
+
+
+png("survived.png")
+ggplot(data = datos,aes(Survived, fill = Survived)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Survived") +
+  xlab("") + 
+  ylab("") +
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes")) +
+  scale_x_discrete(breaks=c("0","1"),
+                   labels=c("No","Yes"))
+dev.off()
+
+#Sex
+table(datos$Sex)
+
+sex <- split(datos$Sex,datos$Survived)
+names(sex) <- c("No survived","Survived")
+sapply(sex,summary)
+
+png("sex.png")
+ggplot(data = datos,aes(Sex, fill = Sex)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Sex") +
+  xlab("") + 
+  ylab("") +
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes")) +
+  scale_x_discrete(breaks=c("female","male"),
+                   labels=c("Female","Male"))
+dev.off()
+
+#Sex / Survived
+png("sexsurvived.png")
+ggplot(data = datos,aes(Sex, fill = Survived)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Sex") +
+  xlab("") + 
+  ylab("") +
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes")) +
+  scale_x_discrete(breaks=c("female","male"),
+                   labels=c("Female","Male"))
+dev.off()
+
+#Embarked
+embarked <- split(datos$Embarked,datos$Survived)
+names(embarked) <- c("No survived","Survived")
+sapply(embarked,summary)
+
+
+png("embarked.png")
+ggplot(data = datos,aes(Embarked,fill = Embarked)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Embarked") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Embarked", labels=c("Cherbourg", "Queenstown","Southampton")) +
+  scale_x_discrete(breaks=c("C","Q","S"),
+                   labels=c("Cherbourg","Queenstown","Southampton"))
+dev.off()
+
+#Embarked / Survived
+png("embarkedsurvived.png")
+ggplot(data = datos,aes(Embarked, fill = Survived)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Embarked") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes")) +
+  scale_x_discrete(breaks=c("C","Q","S"),
+                   labels=c("Cherbourg","Queenstown","Southampton"))
+dev.off()
+
+#Passager Class
+Pclass <- split(datos$Pclass,datos$Survived)
+names(Pclass) <- c("No survived","Survived")
+sapply(Pclass,summary)
+
+png("pclass.png")
+ggplot(data = datos,aes(Pclass,fill = Pclass)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Passager Class") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Class", labels=c("Upper", "Middle","Lower")) +
+  scale_x_discrete(breaks=c("1","2","3"),
+                   labels=c("Upper", "Middle","Lower"))
+dev.off()
+
+#Passager Class / Survived
+png("pclasssurvived.png")
+ggplot(data = datos,aes(Pclass, fill = Survived)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Passager class") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes")) +
+  scale_x_discrete(breaks=c("1","2","3"),
+                   labels=c("Upper", "Middle","Lower"))
+dev.off()
+
+#SibSp
+SibSp <- split(datos$SibSp,datos$Survived)
+names(SibSp) <- c("No survived","Survived")
+sapply(SibSp,summary)
+
+png("SibSp.png")
+ggplot(data = datos,aes(SibSp,fill = SibSp)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Number of Siblings/Spouses Aboard") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Total", 
+                      labels=c("0", "1","2","3","4","5")) +
+  theme(legend.position = "none") 
+dev.off()
+
+#SibSp Survived
+png("sibspsurvived.png")
+ggplot(data = datos,aes(SibSp, fill = Survived)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Number of Siblings/Spouses Aboard") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes"))
+dev.off()
+
+
+#Parch
+
+parch <- split(datos$Parch,datos$Survived)
+names(parch) <- c("No survived","Survived")
+sapply(parch,summary)
+
+png("parch.png")
+ggplot(data = datos,aes(Parch,fill = Parch)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Number of Parents/Children Aboard") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Total", 
+                      labels=c("0", "1","2","3","4","5","6")) +
+  theme(legend.position = "none") 
+dev.off()
+
+#Parch Survived
+png("parchsurvived.png")
+ggplot(data = datos,aes(Parch,fill = Survived)) + 
+  geom_bar() + 
+  theme_minimal() +
+  ggtitle("Number of Parents/Children Aboard") +
+  xlab("") + 
+  ylab("") + 
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes"))
+dev.off()
+
+
+#Fare Histogram
+png("farehist.png")
+ggplot(data = datos,aes(Fare,fill= Survived)) + 
+  geom_histogram() + 
+  theme_minimal() +
+  xlab("") +
+  ylab("") +
+  ggtitle("Passenger fare histogram") + 
+  scale_fill_discrete(name="Survived", labels=c("No", "Yes")) +
+  xlim(c(0,280))
+dev.off()
+
+
+#Fare
+fare <- split(datos$Fare,datos$Survived)
+names(fare) <- c("No survived","Survived")
+sapply(fare,summary)
+
+#Fare Boxplot
+png("farebox.png")
+ggplot(data = datos,aes(x = Survived,
+                         y = Fare, 
+                         fill = Survived)) +
+  geom_boxplot() +
+  theme_minimal() +
+  ggtitle("Passenger fare boxplot") +
+  xlab("") + 
+  ylab("") +
+  theme(legend.position = "none") +
+  ylim(0,280) +
+  scale_x_discrete(breaks=c("0","1"),
+                   labels=c("Dead","Survived"))
+dev.off()
+
+#Age
+age <- split(datos$Age,datos$Survived)
+names(age) <- c("No survived","Survived")
+sapply(age,summary)
+#Age boxplot
+png("agebox")
+ggplot(data = datos,aes(x = Survived,
+                        y = Age, 
+                        fill = Survived)) +
+  geom_boxplot() +
+  theme_minimal() +
+  ggtitle("Passenger age") +
+  xlab("") + 
+  ylab("") +
+  theme(legend.position = "none") +
+  scale_x_discrete(breaks=c("0","1"),
+                   labels=c("Dead","Survived")) 
+dev.off()
